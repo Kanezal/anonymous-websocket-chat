@@ -19,6 +19,7 @@ let wsConnect = function() {
         setTimeout(connect, 500);
     });
 }
+wsConnect()
 
 
 function processMessage(event) {
