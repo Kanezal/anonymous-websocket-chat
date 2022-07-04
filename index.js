@@ -7,17 +7,18 @@ const online = document.getElementById('online')
 
 let wsConnect = function() {
     ws = new WebSocket(`wss://anonymus-websocket-chat.herokuapp.com/ws/${clientID}`);
-    ws.on('open', function() {
-        console.log('socket open');
-    });
-    ws.on('error', function(event) {
+    ws.onopen( (ev) => {
+            console.log('socket open');
+        }   
+    )
+    ws.onerror((ev) => {
         console.error('socket error');
         console.error(event)
-    });
-    ws.on('close', function() {
+    })
+    ws.onclose((ev) => {
         console.log('socket close');
         setTimeout(connect, 500);
-    });
+    })
 }
 wsConnect()
 
