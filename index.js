@@ -5,20 +5,20 @@ const messageArea = document.getElementById("messageArea")
 const messages = document.getElementById('messages')
 const online = document.getElementById('online')
 
-let wsConnect = function() {
+let wsConnect = () => {
     ws = new WebSocket(`wss://anonymus-websocket-chat.herokuapp.com/ws/${clientID}`);
-    ws.onopen( (ev) => {
-            console.log('socket open');
-        }   
-    )
-    ws.onerror((ev) => {
-        console.error('socket error');
-        console.error(event)
-    })
-    ws.onclose((ev) => {
-        console.log('socket close');
-        setTimeout(connect, 500);
-    })
+    ws.onopen = (ev) => {
+        console.log('socket open');
+    }
+    ws.onerror = (ev) => {
+        console.error(`socket error: ${ev.message}`);
+    }
+    ws.onclose = (ev) => {
+        if (!ev.wasClean) {
+            console.log('socket close');
+            setTimeout(connect, 500);
+        }
+    }
 }
 wsConnect()
 
@@ -41,9 +41,9 @@ function processMessage(event) {
 
     messages.appendChild(message);
 
-    if (messages.scrollHeight > messagesScrollHeight && 
-            messages.scrollTop + 60 + 300 > messages.scrollHeight - messagesScrollHeight) {
-                messages.scrollTop = messages.scrollHeight;
+    if (messages.scrollHeight > messagesScrollHeight &&
+        messages.scrollTop + 60 + 300 > messages.scrollHeight - messagesScrollHeight) {
+        messages.scrollTop = messages.scrollHeight;
     }
 }
 
@@ -81,8 +81,8 @@ function keyProcess(event) {
 messageArea.addEventListener("click", messageClick)
 
 function messageClick(event) {
-    if (messages.scrollHeight > messagesScrollHeight && 
-            messages.scrollTop + 60 + 300 > messages.scrollHeight - messagesScrollHeight) {
-                messages.scrollTop = messages.scrollHeight;
+    if (messages.scrollHeight > messagesScrollHeight &&
+        messages.scrollTop + 60 + 300 > messages.scrollHeight - messagesScrollHeight) {
+        messages.scrollTop = messages.scrollHeight;
     }
 }
