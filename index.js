@@ -59,5 +59,8 @@ function keyProcess(event) {
 messageArea.addEventListener("click", messageClick)
 
 function messageClick(event) {
-    messages.scrollTop = messages.scrollHeight;
+    if (messages.scrollHeight > messagesScrollHeight && 
+            messages.scrollTop + 60 + 300 > messages.scrollHeight - messagesScrollHeight) {
+                messages.scrollTop = messages.scrollHeight;
+    }
 }
