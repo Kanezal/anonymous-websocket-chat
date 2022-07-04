@@ -1,5 +1,5 @@
 var clientID = Date.now();
-var ws = new WebSocket(`ws://localhost:8000/ws/${clientID}`);
+var ws = new WebSocket(`ws://anonymus-websocket-chat.herokuapp.com/ws/${clientID}`);
 const messagesScrollHeight = document.getElementById('messages').scrollHeight
 const messageArea = document.getElementById("messageArea")
 
