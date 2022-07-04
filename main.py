@@ -59,6 +59,7 @@ async def websocket_endpoint(websocket: WebSocket, client_id: int):
                     "message": {
                         "text": message_text,
                     },
+                    "connections": len(manager.connections),
                 }
             })
 

@@ -32,13 +32,19 @@
 
             <div id="chat-card" class="card vh-100">
                 <div class="card-header bg-transparent">
-                    <h2 class="card-title">Анонимный чат</h2>
+                    <h2 class="card-title">
+                        Анонимный чат
+                    </h2>
                 </div>
 
                 <ul id="messages" class="list-group list-group-flush overflow-auto " style="flex-grow: 3;">
                 </ul>
 
                 <div class="card-footer bg-transparent d-grid gap-2">
+                    <span id="online" class="position-absolute start-100 translate-middle p-2 bg-danger border border-light badge">
+                        
+                    </span>
+
                     <button id="connect" type="button" class="btn btn-success btn-lg d-grid gap-2 btn-xs visible-xs"
                         onclick="showForm(event)">
                         Подключится

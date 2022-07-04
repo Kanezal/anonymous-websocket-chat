@@ -1,12 +1,31 @@
 var clientID = Date.now();
-var ws = new WebSocket(`wss://anonymus-websocket-chat.herokuapp.com/ws/${clientID}`);
+var ws
 const messagesScrollHeight = document.getElementById('messages').scrollHeight
 const messageArea = document.getElementById("messageArea")
 const messages = document.getElementById('messages')
+const online = document.getElementById('online')
+
+let wsConnect = function() {
+    ws = new WebSocket(`wss://anonymus-websocket-chat.herokuapp.com/ws/${clientID}`);
+    ws.on('open', function() {
+        console.log('socket open');
+    });
+    ws.on('error', function(event) {
+        console.error('socket error');
+        console.error(event)
+    });
+    ws.on('close', function() {
+        console.log('socket close');
+        setTimeout(connect, 500);
+    });
+}
+
 
 function processMessage(event) {
     var message = document.createElement('li')
     let data = JSON.parse(event.data).data
+
+    online.innerHTML = data.connections
 
     message.classList += "list-group-item"
     message.innerHTML = `
@@ -19,6 +38,7 @@ function processMessage(event) {
     `
 
     messages.appendChild(message);
+
     if (messages.scrollHeight > messagesScrollHeight && 
             messages.scrollTop + 60 + 300 > messages.scrollHeight - messagesScrollHeight) {
                 messages.scrollTop = messages.scrollHeight;
