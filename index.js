@@ -2,9 +2,9 @@ var clientID = Date.now();
 var ws = new WebSocket(`wss://anonymus-websocket-chat.herokuapp.com/ws/${clientID}`);
 const messagesScrollHeight = document.getElementById('messages').scrollHeight
 const messageArea = document.getElementById("messageArea")
+const messages = document.getElementById('messages')
 
 function processMessage(event) {
-    var messages = document.getElementById('messages')
     var message = document.createElement('li')
     let data = JSON.parse(event.data).data
 
@@ -54,4 +54,10 @@ function keyProcess(event) {
         event.preventDefault()
         sendMessage()
     }
+}
+
+messageArea.addEventListener("click", messageClick)
+
+function messageClick(event) {
+    messages.scrollTop = messages.scrollHeight;
 }
